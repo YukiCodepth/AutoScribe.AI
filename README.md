@@ -66,6 +66,7 @@ AutoScribe.AI is built with the intent to integrate with IBM’s  Granite 3.3 an
 
 Aman Kumar
 Hackathon Participant - IBM AI & Automation Unpacked 2025
+
 GitHub: https://github.com/YukiCodepth
 
 Linkedin: https://www.linkedin.com/in/aman-kumar-429086299/
