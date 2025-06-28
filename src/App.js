@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
+import './index.css'; // make sure dark/light styles are handled in your CSS
 
 function App() {
   const [transcript, setTranscript] = useState('');
   const [summary, setSummary] = useState('');
   const [tasks, setTasks] = useState('');
   const [audioFile, setAudioFile] = useState(null);
+  const [theme, setTheme] = useState('light');
+  const [mode, setMode] = useState('business');
+
+  const handleThemeToggle = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.body.className = newTheme; // change body class
+  };
+
+  const handleModeChange = (e) => {
+    setMode(e.target.value);
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       setAudioFile(file);
-      // Simulate real speech-to-text output
       const simulatedTranscript =
         "Raj will update the dashboard by Thursday. Sara is sending the client proposal. We'll meet again on Friday to review progress.";
       setTranscript(simulatedTranscript);
@@ -23,34 +35,88 @@ function App() {
 
     const sentences = transcript
       .split('.')
-      .filter(s => s.trim().length > 0)
-      .slice(0, 2)
-      .map(s => s.trim());
+      .map(s => s.trim())
+      .filter(Boolean)
+      .slice(0, 2);
 
-    const summaryOutput =
-      "Summary: Key points from the meeting included " + sentences.join(', ') + '.';
+    let summaryOutput = "";
+
+    if (mode === 'business') {
+      summaryOutput =
+        "Summary: Key points from the meeting included " + sentences.join(', ') + '.';
+    } else if (mode === 'academic') {
+      summaryOutput =
+        "Abstract: This discussion covered aspects such as " + sentences.join(', ') + '.';
+    }
+
     setSummary(summaryOutput);
   };
 
   const simulateTasks = () => {
     if (!transcript.trim()) return;
 
-    const actionKeywords = ['will', 'must', 'need to', 'should', 'is going to', 'plans to'];
+    const actionKeywords = [
+      'will',
+      'must',
+      'need to',
+      'should',
+      'is going to',
+      'plans to',
+      'is',
+      'are',
+      'was',
+      'were'
+    ];
+
     const sentences = transcript
       .split('.')
       .map(s => s.trim())
-      .filter(s => actionKeywords.some(keyword => s.toLowerCase().includes(keyword)));
+      .filter(s =>
+        actionKeywords.some(keyword =>
+          s.toLowerCase().includes(keyword)
+        )
+      );
 
     const formattedTasks = sentences.map(task =>
-      task.charAt(0).toUpperCase() + task.slice(1)
+      mode === 'academic'
+        ? `• As discussed: ${task.charAt(0).toUpperCase() + task.slice(1)}`
+        : `• ${task.charAt(0).toUpperCase() + task.slice(1)}`
     );
 
     setTasks(formattedTasks.join('\n'));
   };
 
   return (
-    <div className="container">
+    <div className={`container ${theme}`}>
       <h1>AutoScribe.AI</h1>
+
+      <div style={{ marginBottom: '10px' }}>
+        <button onClick={handleThemeToggle}>
+          Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
+        </button>
+      </div>
+
+      <div style={{ marginBottom: '10px' }}>
+        <label><strong>Mode:</strong></label>
+        <label>
+          <input
+            type="radio"
+            value="business"
+            checked={mode === 'business'}
+            onChange={handleModeChange}
+          />
+          Business
+        </label>
+        <label style={{ marginLeft: '10px' }}>
+          <input
+            type="radio"
+            value="academic"
+            checked={mode === 'academic'}
+            onChange={handleModeChange}
+          />
+          Academic
+        </label>
+      </div>
 
       <input
         type="file"
@@ -74,18 +140,8 @@ function App() {
         <h2>Transcript</h2>
         <p>{transcript}</p>
 
-        <h2>Summary</h2>
+        <h2>{mode === 'academic' ? 'Abstract' : 'Summary'}</h2>
         <p>{summary}</p>
 
         <h2>Action Items</h2>
         <div>
-          {tasks.split('\n').map((task, idx) => (
-            <p key={idx}>• {task.replace(/^[-•]\s*/, '')}</p>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default App;
