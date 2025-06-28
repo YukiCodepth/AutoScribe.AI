@@ -20,7 +20,7 @@ AutoScribe.AI is an intelligent assistant that transforms raw transcripts into s
 * Personal notes section
 * One-click text export
 
-With support for **Academic** and **Business** modes, DualSage.AI adapts its logic and output style to the user's needs — whether it's a classroom setting or a boardroom discussion.
+With support for **Academic** and **Business** modes, AutoScribe.AI adapts its logic and output style to the user's needs — whether it's a classroom setting or a boardroom discussion.
 
 
 🎯 Key Features
