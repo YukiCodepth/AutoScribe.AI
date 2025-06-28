@@ -6,41 +6,58 @@ function App() {
   const [tasks, setTasks] = useState('');
   const [audioFile, setAudioFile] = useState(null);
 
-  const simulateTranscription = () => {
-    setTranscript(
-      "Welcome everyone. First, Raj will update the UI design by Thursday. Sara is preparing the client proposal. We'll review progress in Friday's meeting."
-    );
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setAudioFile(file);
+      // Simulate real speech-to-text output
+      const simulatedTranscript =
+        "Raj will update the dashboard by Thursday. Sara is sending the client proposal. We'll meet again on Friday to review progress.";
+      setTranscript(simulatedTranscript);
+      alert("Audio file uploaded: " + file.name);
+    }
   };
 
   const simulateSummary = () => {
-    setSummary(
-      "Summary: Key points from the meeting included project deadlines, roles, and client feedback."
-    );
+    if (!transcript.trim()) return;
+
+    const sentences = transcript
+      .split('.')
+      .filter(s => s.trim().length > 0)
+      .slice(0, 2)
+      .map(s => s.trim());
+
+    const summaryOutput =
+      "Summary: Key points from the meeting included " + sentences.join(', ') + '.';
+    setSummary(summaryOutput);
   };
 
   const simulateTasks = () => {
-    setTasks(`- Follow up with client
-- Prepare report
-- Schedule next meeting`);
-  };
+    if (!transcript.trim()) return;
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setAudioFile(file);
-    if (file) {
-      alert(
-        "Audio file uploaded: " +
-          file.name +
-          "\\nSimulated transcription will follow when you click Transcribe."
-      );
-    }
+    const actionKeywords = ['will', 'must', 'need to', 'should', 'is going to', 'plans to'];
+    const sentences = transcript
+      .split('.')
+      .map(s => s.trim())
+      .filter(s => actionKeywords.some(keyword => s.toLowerCase().includes(keyword)));
+
+    const formattedTasks = sentences.map(task =>
+      task.charAt(0).toUpperCase() + task.slice(1)
+    );
+
+    setTasks(formattedTasks.join('\n'));
   };
 
   return (
     <div className="container">
       <h1>AutoScribe.AI</h1>
 
-      <input type="file" accept="audio/*" onChange={handleFileChange} />
+      <input
+        type="file"
+        accept="audio/mp3, audio/mpeg, audio/wav"
+        onChange={handleFileChange}
+      />
+
       <textarea
         placeholder="Upload or paste transcript..."
         rows="5"
@@ -49,7 +66,6 @@ function App() {
       />
 
       <div>
-        <button onClick={simulateTranscription}>Transcribe</button>
         <button onClick={simulateSummary}>Summarize</button>
         <button onClick={simulateTasks}>Extract Tasks</button>
       </div>
@@ -64,7 +80,7 @@ function App() {
         <h2>Action Items</h2>
         <div>
           {tasks.split('\n').map((task, idx) => (
-            <p key={idx}>• {task}</p>
+            <p key={idx}>• {task.replace(/^[-•]\s*/, '')}</p>
           ))}
         </div>
       </div>
