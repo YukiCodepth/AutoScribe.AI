@@ -1,6 +1,6 @@
-📘 DualSage.AI
+📘 AutoScribe.AI
 
-AI-Powered Transcript Summarization for Academia and Business**
+AI-Powered Transcript Summarization for Academia and Business
 Built for the IBM AI & Automation Unpacked Hackathon – June 2025
 
 
@@ -11,7 +11,7 @@ Deploy Link : https://6860558c97cef8d2c13a8ef4--dualsageai.netlify.app
 
 🧩 Overview
 
-DualSage.AI is an intelligent assistant that transforms raw transcripts into structured, actionable insights — designed for both academic and professional use cases. Users can manually input transcripts from meetings, lectures, or discussions, and receive:
+AutoScribe.AI is an intelligent assistant that transforms raw transcripts into structured, actionable insights — designed for both academic and professional use cases. Users can manually input transcripts from meetings, lectures, or discussions, and receive:
 
 * Context-specific summaries
 * Clear action items
@@ -45,7 +45,7 @@ With support for **Academic** and **Business** modes, DualSage.AI adapts its log
 
 🧠 IBM Granite Integration (Planned)
 
-DualSage.AI is built with the intent to integrate with IBM’s  Granite 3.3 and Granite 4.0 models via watsonx.ai. The current version uses frontend logic to simulate intelligent behavior. Future versions will support:
+AutoScribe.AI is built with the intent to integrate with IBM’s  Granite 3.3 and Granite 4.0 models via watsonx.ai. The current version uses frontend logic to simulate intelligent behavior. Future versions will support:
 
 * Real-time summarization with Granite Instruct
 * Advanced speech-to-text via Granite Speech 8B
