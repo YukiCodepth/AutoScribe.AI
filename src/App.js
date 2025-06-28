@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './index.css'; // make sure dark/light styles are handled in your CSS
+import './index.css';
 
 function App() {
   const [transcript, setTranscript] = useState('');
@@ -12,7 +12,7 @@ function App() {
   const handleThemeToggle = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    document.body.className = newTheme; // change body class
+    document.body.className = newTheme;
   };
 
   const handleModeChange = (e) => {
@@ -46,7 +46,7 @@ function App() {
         "Summary: Key points from the meeting included " + sentences.join(', ') + '.';
     } else if (mode === 'academic') {
       summaryOutput =
-        "Abstract: This discussion covered aspects such as " + sentences.join(', ') + '.';
+        "Abstract: This discussion addressed themes such as " + sentences.join(', ') + '.';
     }
 
     setSummary(summaryOutput);
@@ -56,16 +56,9 @@ function App() {
     if (!transcript.trim()) return;
 
     const actionKeywords = [
-      'will',
-      'must',
-      'need to',
-      'should',
-      'is going to',
-      'plans to',
-      'is',
-      'are',
-      'was',
-      'were'
+      'will', 'must', 'need to', 'should',
+      'is going to', 'plans to', 'is', 'are',
+      'was', 'were'
     ];
 
     const sentences = transcript
@@ -79,7 +72,7 @@ function App() {
 
     const formattedTasks = sentences.map(task =>
       mode === 'academic'
-        ? `• As discussed: ${task.charAt(0).toUpperCase() + task.slice(1)}`
+        ? `• As noted: ${task.charAt(0).toUpperCase() + task.slice(1)}`
         : `• ${task.charAt(0).toUpperCase() + task.slice(1)}`
     );
 
@@ -137,11 +130,21 @@ function App() {
       </div>
 
       <div className="result-section">
-        <h2>Transcript</h2>
-        <p>{transcript}</p>
-
         <h2>{mode === 'academic' ? 'Abstract' : 'Summary'}</h2>
         <p>{summary}</p>
 
         <h2>Action Items</h2>
         <div>
+          {tasks.split('\n').map((task, idx) => (
+            <p key={idx}>{task.replace(/^[-•]\s*/, '• ')}</p>
+          ))}
+        </div>
+
+        <h2>Transcript</h2>
+        <p>{transcript}</p>
+      </div>
+    </div>
+  );
+}
+
+export default App;
