@@ -1,0 +1,83 @@
+.App {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+  background-color: #f2f2f2;
+  color: #333;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.App.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #0077cc;
+}
+
+.controls {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.controls label {
+  margin: 0 1rem;
+}
+
+textarea {
+  width: 100%;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.button-row {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.button-row button {
+  margin: 0.3rem;
+  padding: 0.6rem 1.2rem;
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button-row button:hover {
+  background-color: #005fa3;
+}
+
+.results {
+  margin-top: 2rem;
+}
+
+.results h2 {
+  color: #444;
+  margin-top: 1.2rem;
+}
+
+.results pre {
+  white-space: pre-wrap;
+  background-color: #f9f9f9;
+  padding: 1rem;
+  border-radius: 5px;
+  font-size: 0.95rem;
+}
+
+.footer {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ccc;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+}
