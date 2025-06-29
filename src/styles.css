@@ -1,0 +1,77 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f9f9f9;
+  color: #222;
+}
+body.dark {
+  background: #111;
+  color: #eee;
+}
+.container {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+}
+.banner {
+  text-align: center;
+  padding: 1rem;
+  background: #e0f0ff;
+  border-radius: 8px;
+  font-weight: bold;
+}
+.controls {
+  display: flex;
+  gap: 10px;
+  margin: 1rem 0;
+  flex-wrap: wrap;
+}
+textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+.output {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 2rem;
+}
+footer img {
+  margin-top: 1rem;
+  height: 50px;
+}
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+.modal-content {
+  background: white;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 10% auto;
+  border-radius: 8px;
+  position: relative;
+}
+.modal-content h3 {
+  margin-top: 0;
+}
+.modal-content .close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
