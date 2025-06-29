@@ -6,7 +6,7 @@ Built for the IBM AI & Automation Unpacked Hackathon – June 2025
 
 🔗 Live Application
 
-Deploy Link : https://6860558c97cef8d2c13a8ef4--dualsageai.netlify.app
+Deploy Link : https://autoscribeai.netlify.app
 
 
 🧩 Overview
