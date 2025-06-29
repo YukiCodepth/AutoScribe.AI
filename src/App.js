@@ -18,9 +18,11 @@ function App() {
   const handleGenerateSummary = () => {
     let output = "";
     if (mode === "academic") {
-      output = "This lecture covered concepts on neural networks including transformer models such as BERT and GPT. Students discussed training techniques and the importance of pre-processing. The upcoming topic will be attention mechanisms.";
+      output =
+        "This lecture covered concepts on neural networks including transformer models such as BERT and GPT. Students discussed training techniques and the importance of pre-processing. The upcoming topic will be attention mechanisms.";
     } else {
-      output = "The meeting focused on progress updates, including Raj handling dashboard updates and Sara preparing the client proposal. Follow-up scheduled for Friday to review outcomes.";
+      output =
+        "The meeting focused on progress updates, including Raj handling dashboard updates and Sara preparing the client proposal. Follow-up scheduled for Friday to review outcomes.";
     }
     setSummary(output);
   };
@@ -28,9 +30,15 @@ function App() {
   const handleExtractTasks = () => {
     let output = "";
     if (mode === "academic") {
-      output = "- Review assigned paper by Friday\n- Submit sentiment analysis project by next week\n- Prepare for Monday's class on attention\n- Raj updates slides\n- Kriti compiles questions";
+      output = `- Review assigned paper by Friday
+- Submit sentiment analysis project by next week
+- Prepare for Monday's class on attention
+- Raj updates slides
+- Kriti compiles questions`;
     } else {
-      output = "- Raj to update the dashboard\n- Sara to send proposal\n- Prepare for Friday meeting review";
+      output = `- Raj to update the dashboard
+- Sara to send proposal
+- Prepare for Friday meeting review`;
     }
     setTasks(output);
   };
@@ -38,9 +46,13 @@ function App() {
   const handleFindDeadlines = () => {
     let output = "";
     if (mode === "academic") {
-      output = "- Review paper: Due Friday\n- Project submission: Next week\n- Lecture on attention: Monday";
+      output = `- Review paper: Due Friday
+- Project submission: Next week
+- Lecture on attention: Monday`;
     } else {
-      output = "- Client proposal: Send this week\n- Dashboard update: Thursday\n- Next review: Friday";
+      output = `- Client proposal: Send this week
+- Dashboard update: Thursday
+- Next review: Friday`;
     }
     setDeadlines(output);
   };
@@ -48,9 +60,14 @@ function App() {
   const handleFindHighlights = () => {
     let output = "";
     if (mode === "academic") {
-      output = "- Transformers: BERT, GPT\n- NLP applications\n- Attention mechanisms\n- Data pre-processing importance";
+      output = `- Transformers: BERT, GPT
+- NLP applications
+- Attention mechanisms
+- Data pre-processing importance`;
     } else {
-      output = "- Client proposal discussions\n- Team accountability\n- Follow-up timeline";
+      output = `- Client proposal discussions
+- Team accountability
+- Follow-up timeline`;
     }
     setHighlights(output);
   };
@@ -115,7 +132,11 @@ function App() {
 
       <footer className="footer">
         <p>Made by Aman Kumar | BTech ECE CORE, SRM Institute of Science and Technology</p>
-        <p>Email: iamankr886@gmail.com | GitHub: YukiCodepth</p>
+        <p>Email: iamankr886@gmail.com</p>
+        <p>
+          <a href="https://github.com/YukiCodepth" target="_blank" rel="noopener noreferrer">GitHub</a> |{" "}
+          <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </p>
       </footer>
     </div>
   );
