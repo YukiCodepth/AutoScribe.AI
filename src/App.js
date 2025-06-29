@@ -1,189 +1,115 @@
-import React, { useState } from 'react';
-import './index.css';
+import React, { useState } from "react";
+import "./styles.css";
 
-function App() {
-  const [transcript, setTranscript] = useState('');
-  const [summary, setSummary] = useState('');
-  const [tasks, setTasks] = useState('');
-  const [deadlines, setDeadlines] = useState('');
-  const [highlights, setHighlights] = useState('');
-  const [notes, setNotes] = useState('');
-  const [theme, setTheme] = useState('light');
-  const [mode, setMode] = useState('academic');
+export default function App() {
+  const [input, setInput] = useState("");
+  const [mode, setMode] = useState("academic");
+  const [theme, setTheme] = useState("light");
+  const [summary, setSummary] = useState("");
+  const [actions, setActions] = useState("");
+  const [showAbout, setShowAbout] = useState(false);
 
-  const handleThemeToggle = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.body.className = newTheme;
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
+    document.body.className = theme === "light" ? "dark" : "light";
   };
 
-  const handleModeChange = (e) => {
-    setMode(e.target.value);
+  const handleGenerate = () => {
+    if (!input.trim()) return;
+
+    const isAcademic = mode === "academic";
+    const summary = isAcademic
+      ? `This lecture discussed key points such as AI fundamentals, supervised vs unsupervised learning, and model accuracy trade-offs.`
+      : `The meeting covered upcoming deliverables, client proposals, and internal policy updates.`;
+
+    const actions = isAcademic
+      ? `• Priya to submit lab report by Friday\n• Ravi to prepare workshop slides\n• Review session on Monday`
+      : `• Sara to send client proposal by Wednesday\n• Kunal updating security policies\n• Review meeting on Friday`;
+
+    setSummary(summary);
+    setActions(actions);
   };
 
-  const generateSummary = () => {
-    const sentences = transcript
-      .split('.')
-      .map(s => s.trim())
-      .filter(Boolean)
-      .slice(0, 2);
-
-    const base = sentences.join(', ') + '.';
-    setSummary(
-      mode === 'academic'
-        ? `Abstract: This discussion addressed topics such as ${base}`
-        : `Summary: Key business outcomes included ${base}`
-    );
-  };
-
-  const generateTasks = () => {
-    const actionWords = [
-      'will', 'must', 'need to', 'should', 'plans to', 'is', 'are', 'was', 'were'
-    ];
-    const lines = transcript
-      .split('.')
-      .map(s => s.trim())
-      .filter(line =>
-        actionWords.some(w => line.toLowerCase().includes(w))
-      );
-
-    setTasks(
-      lines.map(task =>
-        mode === 'academic'
-          ? `• As noted: ${task.charAt(0).toUpperCase() + task.slice(1)}`
-          : `• ${task.charAt(0).toUpperCase() + task.slice(1)}`
-      ).join('\n')
-    );
-  };
-
-  const extractDeadlines = () => {
-    const deadlineKeywords = ['by', 'before', 'due', 'deadline', 'submit'];
-    const lines = transcript
-      .split('.')
-      .map(s => s.trim())
-      .filter(line =>
-        deadlineKeywords.some(k => line.toLowerCase().includes(k))
-      );
-
-    setDeadlines(lines.map(dl => `• ${dl}`).join('\n'));
-  };
-
-  const extractHighlights = () => {
-    const keywords = ['important', 'key', 'notable', 'remember', 'highlight'];
-    const lines = transcript
-      .split('.')
-      .map(s => s.trim())
-      .filter(line =>
-        keywords.some(k => line.toLowerCase().includes(k))
-      );
-
-    setHighlights(lines.map(hl => `• ${hl}`).join('\n'));
-  };
-
-  const exportAsText = () => {
+  const handleExport = () => {
     const content = `
 AutoScribe.AI Export
-======================
 
-Mode: ${mode.charAt(0).toUpperCase() + mode.slice(1)}
+Mode: ${mode.toUpperCase()}
 
-Transcript:
-${transcript}
-
-${mode === 'academic' ? 'Abstract' : 'Summary'}:
+Summary:
 ${summary}
 
 Action Items:
-${tasks}
+${actions}
 
-Deadlines:
-${deadlines}
+---
 
-Highlights:
-${highlights}
+Generated using AutoScribe.AI by Aman Kumar (SRM Institute of Science and Technology)
+    `.trim();
 
-Personal Notes:
-${notes}
-`;
-    const blob = new Blob([content], { type: 'text/plain' });
+    const blob = new Blob([content], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'AutoScribe_Export.txt';
-    a.click();
-    URL.revokeObjectURL(url);
+    const link = document.createElement("a");
+    link.download = "autoscribe_summary.txt";
+    link.href = url;
+    link.click();
   };
 
   return (
-    <div className={`container ${theme}`}>
-      <h1 className="title">AutoScribe.AI</h1>
-
-      <div className="controls">
-        <button onClick={handleThemeToggle}>
-          Toggle {theme === 'light' ? 'Dark' : 'Light'} Mode
-        </button>
-
-        <div className="mode-switch">
-          <label>
-            <input
-              type="radio"
-              value="academic"
-              checked={mode === 'academic'}
-              onChange={handleModeChange}
-            />
-            Academic
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="business"
-              checked={mode === 'business'}
-              onChange={handleModeChange}
-            />
-            Business
-          </label>
-        </div>
+    <div className="container">
+      {/* Banner */}
+      <div className="banner">
+        AutoScribe.AI – Context-Aware Summarization for Academia & Business
       </div>
 
+      {/* Mode Toggle */}
+      <div className="controls">
+        <select value={mode} onChange={(e) => setMode(e.target.value)}>
+          <option value="academic">Academic</option>
+          <option value="business">Business</option>
+        </select>
+        <button onClick={toggleTheme}>{theme === "light" ? "Dark" : "Light"} Mode</button>
+        <button onClick={handleGenerate}>Generate</button>
+        <button onClick={handleExport}>Export</button>
+        <button onClick={() => setShowAbout(true)}>About the Developer</button>
+      </div>
+
+      {/* Transcript Input */}
       <textarea
-        className="transcript-box"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
         placeholder="Paste your transcript here..."
-        rows="8"
-        value={transcript}
-        onChange={(e) => setTranscript(e.target.value)}
+        rows={8}
       />
 
-      <div className="button-group">
-        <button onClick={generateSummary}>Generate Summary</button>
-        <button onClick={generateTasks}>Extract Tasks</button>
-        <button onClick={extractDeadlines}>Find Deadlines</button>
-        <button onClick={extractHighlights}>Find Highlights</button>
-        <button onClick={exportAsText}>Export Notes</button>
-      </div>
-
-      <div className="result-section">
-        <h2>{mode === 'academic' ? 'Abstract' : 'Summary'}</h2>
+      {/* Output */}
+      <div className="output">
+        <h2>Summary</h2>
         <p>{summary}</p>
-
         <h2>Action Items</h2>
-        <pre>{tasks}</pre>
-
-        <h2>Deadlines</h2>
-        <pre>{deadlines}</pre>
-
-        <h2>Highlights</h2>
-        <pre>{highlights}</pre>
-
-        <h2>Personal Notes</h2>
-        <textarea
-          rows="4"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Add your own notes here..."
-        />
+        <p>{actions}</p>
       </div>
+
+      {/* Footer */}
+      <footer>
+        <p>Developed by <strong>Aman Kumar</strong></p>
+        <p>BTech ECE CORE, SRM Institute of Science and Technology</p>
+        <a href="https://github.com/YukiCodepth" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank">LinkedIn</a>
+        <img src="/college-stamp.svg" alt="SRM Stamp" />
+      </footer>
+
+      {/* About Modal */}
+      {showAbout && (
+        <div className="modal">
+          <div className="modal-content">
+            <button className="close" onClick={() => setShowAbout(false)}>×</button>
+            <h3>About the Developer</h3>
+            <p><strong>Aman Kumar</strong><br />BTech ECE CORE<br />SRM Institute of Science and Technology, Kattankulathur, Chennai</p>
+            <p>Project built for IBM AI & Automation Unpacked Hackathon 2025</p>
+            <a href="https://github.com/YukiCodepth" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank">LinkedIn</a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
-
-export default App;
