@@ -132,7 +132,7 @@ function App() {
 
       <footer className="footer">
         <p>Made by Aman Kumar | BTech ECE CORE, SRM Institute of Science and Technology</p>
-        <p>Email: iamankr886@gmail.com</p>
+        <p>Email: ak2465@srmist.edu.in</p>
         <p>
           <a href="https://github.com/YukiCodepth" target="_blank" rel="noopener noreferrer">GitHub</a> |{" "}
           <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
