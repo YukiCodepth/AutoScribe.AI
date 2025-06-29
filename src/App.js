@@ -17,14 +17,13 @@ export default function App() {
   const handleGenerate = () => {
     if (!input.trim()) return;
 
-    const isAcademic = mode === "academic";
-    const summary = isAcademic
-      ? `This lecture discussed key points such as AI fundamentals, supervised vs unsupervised learning, and model accuracy trade-offs.`
-      : `The meeting covered upcoming deliverables, client proposals, and internal policy updates.`;
+    const summary = mode === "academic"
+      ? "This lecture covered AI principles, supervised learning, and model evaluation techniques."
+      : "This meeting discussed project deadlines, client updates, and security policy changes.";
 
-    const actions = isAcademic
-      ? `• Priya to submit lab report by Friday\n• Ravi to prepare workshop slides\n• Review session on Monday`
-      : `• Sara to send client proposal by Wednesday\n• Kunal updating security policies\n• Review meeting on Friday`;
+    const actions = mode === "academic"
+      ? "• Submit assignment by Thursday\n• Prepare for Monday’s quiz"
+      : "• Sara to email client by Friday\n• Kunal to update documentation";
 
     setSummary(summary);
     setActions(actions);
@@ -45,6 +44,7 @@ ${actions}
 ---
 
 Generated using AutoScribe.AI by Aman Kumar (SRM Institute of Science and Technology)
+Email: iamankr886@gmail.com
     `.trim();
 
     const blob = new Blob([content], { type: "text/plain" });
@@ -57,24 +57,23 @@ Generated using AutoScribe.AI by Aman Kumar (SRM Institute of Science and Techno
 
   return (
     <div className="container">
-      {/* Banner */}
       <div className="banner">
         AutoScribe.AI – Context-Aware Summarization for Academia & Business
       </div>
 
-      {/* Mode Toggle */}
       <div className="controls">
         <select value={mode} onChange={(e) => setMode(e.target.value)}>
           <option value="academic">Academic</option>
           <option value="business">Business</option>
         </select>
-        <button onClick={toggleTheme}>{theme === "light" ? "Dark" : "Light"} Mode</button>
+        <button onClick={toggleTheme}>
+          {theme === "light" ? "Dark" : "Light"} Mode
+        </button>
         <button onClick={handleGenerate}>Generate</button>
         <button onClick={handleExport}>Export</button>
-        <button onClick={() => setShowAbout(true)}>About the Developer</button>
+        <button onClick={() => setShowAbout(true)}>About</button>
       </div>
 
-      {/* Transcript Input */}
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -82,7 +81,6 @@ Generated using AutoScribe.AI by Aman Kumar (SRM Institute of Science and Techno
         rows={8}
       />
 
-      {/* Output */}
       <div className="output">
         <h2>Summary</h2>
         <p>{summary}</p>
@@ -90,23 +88,29 @@ Generated using AutoScribe.AI by Aman Kumar (SRM Institute of Science and Techno
         <p>{actions}</p>
       </div>
 
-      {/* Footer */}
       <footer>
-        <p>Developed by <strong>Aman Kumar</strong></p>
-        <p>BTech ECE CORE, SRM Institute of Science and Technology</p>
-        <a href="https://github.com/YukiCodepth" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank">LinkedIn</a>
-        <img src="/college-stamp.svg" alt="SRM Stamp" />
+        <div className="footer-text">
+          <p><strong>Aman Kumar</strong> – BTech ECE CORE</p>
+          <p>SRM Institute of Science and Technology, Kattankulathur, Chennai</p>
+          <p>
+            <a href="mailto:iamankr886@gmail.com">iamankr886@gmail.com</a> |
+            <a href="https://github.com/YukiCodepth" target="_blank" rel="noreferrer"> GitHub</a> |
+            <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank" rel="noreferrer"> LinkedIn</a>
+          </p>
+        </div>
+        <img src="/college-stamp.png" alt="SRM Logo" className="footer-logo" />
       </footer>
 
-      {/* About Modal */}
       {showAbout && (
         <div className="modal">
           <div className="modal-content">
             <button className="close" onClick={() => setShowAbout(false)}>×</button>
             <h3>About the Developer</h3>
-            <p><strong>Aman Kumar</strong><br />BTech ECE CORE<br />SRM Institute of Science and Technology, Kattankulathur, Chennai</p>
-            <p>Project built for IBM AI & Automation Unpacked Hackathon 2025</p>
-            <a href="https://github.com/YukiCodepth" target="_blank">GitHub</a> | <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank">LinkedIn</a>
+            <p><strong>Aman Kumar</strong><br />BTech ECE CORE<br />SRM Institute of Science and Technology</p>
+            <p>Email: <a href="mailto:iamankr886@gmail.com">iamankr886@gmail.com</a></p>
+            <p>Hackathon: IBM AI & Automation Unpacked Hackathon 2025</p>
+            <a href="https://github.com/YukiCodepth" target="_blank" rel="noreferrer">GitHub</a> |{" "}
+            <a href="https://www.linkedin.com/in/aman-kumar-429086299/" target="_blank" rel="noreferrer">LinkedIn</a>
           </div>
         </div>
       )}
